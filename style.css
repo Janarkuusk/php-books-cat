@@ -1,11 +1,11 @@
              body {
-                background: linear-gradient(90deg, rgb(11, 14, 207) 0%, rgb(182, 15, 140) 0%, rgb(0, 121, 121) 100%);
+                background: linear-gradient(89deg, rgb(11, 14, 207) 0%, rgb(182, 15, 140) 0%, rgb(0, 121, 121) 100%);
                 background-size: 150% 150%;
                 color: white;
                 font-family: 'Source Code Pro', monospace;
                 margin-top: 1%;
                 margin-left: 2%;
-                animation: gradient 15s ease infinite;
+                
             }
             
             a {

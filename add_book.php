@@ -1,4 +1,4 @@
-```<?php
+<?php
 require_once "connection.php";
 $stmt = $pdo->query('SELECT * FROM authors');
 
@@ -6,9 +6,10 @@ if ( isset($_POST['submit'])) {
     $stmt = $pdo->prepare('INSERT INTO books (title, release_date, cover_path, language, summary, price, stock_saldo, pages, type) VALUES (:title, :release_date, :cover_path, :language, :summary, :price, :stock_saldo, :pages, :type);');   // INSERT INTO books (title, release_date, cover_path, language, summary, price, stock-saldo, pages, type) VALUES ();
     $stmt->execute(['title' => $_POST['title'], 'release_date' => $_POST['release_date'], 'cover_path' => $_POST['cover_path'], 'language' => $_POST['language'], 'summary' => $_POST['summary'], 'price' => $_POST['price'], 'stock_saldo' => $_POST['stock_saldo'], 'pages' => $_POST['pages'], 'type' => $_POST['type']]);
     $id = $pdo->lastInsertId();
+    
+    $stmt = $pdo->prepare('INSERT INTO book_authors (book_id, author_id) VALUES (:book_id, :author_id)');
+    $stmt->execute(['book_id' => $id, 'author_id' => $_POST['author']]);
 
-
-    // INSERT INTO book_authors (book_id, author_id) VALUES (:book_id, :author_id);
 }
 
 
@@ -20,10 +21,14 @@ if ( isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lisa raamat</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
     <form action="add_book.php" method="post">
-        <input type="text" name="title">
+        <input type="text" name="title" value="Raamatu nimi">
         <br>
         <select name="author">
             <?php while ( $author = $stmt->fetch()): ?>
@@ -57,4 +62,3 @@ if ( isset($_POST['submit'])) {
     </form>
 </body>
 </html>
-```
